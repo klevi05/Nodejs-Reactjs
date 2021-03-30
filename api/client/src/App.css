@@ -3,10 +3,12 @@
 }
 header {
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
     background-color: black;
     height: 12vh;
     font-family: 'Bebas Neue', cursive;
     font-size: 30px;
-    padding-left: 800px;
-    padding-top: 20px;
 }

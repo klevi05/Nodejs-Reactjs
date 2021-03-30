@@ -6,7 +6,7 @@ function App(){
   return (
     <React.Fragment>
       <header>
-        <h1>Library App</h1>
+        <h1 className="header-title">Library App</h1>
       </header>
       <Form />
     </React.Fragment>

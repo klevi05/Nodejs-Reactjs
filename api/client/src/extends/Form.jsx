@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../extends/form.css';
+import library from '../images/library.jpeg'
 
 class Form extends Component {
   constructor(props){
@@ -7,8 +8,7 @@ class Form extends Component {
     this.state = {
       name: "",
       lastname: "",
-      email: "",
-      post: {}
+      email: ""
     }
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -16,6 +16,13 @@ class Form extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  //ComponentDidMount acts like a GET method
+  componentDidMount(){
+    fetch('http://localhost:9000/get/')
+         .then(res => res.json())
+         .then(data => console.log(data));
+  };
+  //POST Method
   handleSubmit(){
      let databody = {
          name: this.state.name,
@@ -43,15 +50,12 @@ class Form extends Component {
 handleEmailChange(event){
   this.setState({ email: event.target.value });
 };
-handleGET(){
-  fetch('http://localhost:9000/get/')
-         .then(res => res.json())
-         .then(data => console.log(data));
-};
+
 
   render(){
   return (
     <div className='container'>
+      <div className="form-area">
             <form className='outer-box' onSubmit={this.handleSubmit}>
                 <label >
                     <p className="fonti">Name</p> 
@@ -67,8 +71,11 @@ handleGET(){
                 </label>
                 <br/>
                 <input className="button" type="submit" value="Add to DB" />
-                <input onClick={this.handleGET} className="button" type="button" value="GET" />
             </form>
+          </div>
+            <div className="Picture">
+              <img className="library-pic" src={library} alt="library"/>
+            </div>
         </div>
   );
 }}

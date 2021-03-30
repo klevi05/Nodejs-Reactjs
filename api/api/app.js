@@ -26,11 +26,11 @@ app.use(cors())
 //app route
 app.get('/get/',async (req, res)=>{
     await client.connect();
-    const database = client.db(dbname);
-    const library = database.collection('library');
-    library.find({}).toArray(function (err, result){
+    client.db(dbname).collection('library').find({}).toArray(function (err, result){
         if (err) throw err;
         res.end(JSON.stringify(result));
+    }).then(()=>{
+        return client.close();
     })
     }
    )
@@ -41,10 +41,9 @@ app.post('/posts/',async (req, res) => {
         email: req.body.email
     };
     await client.connect();
-    const database = client.db(dbname);
-    const library = database.collection('library');
-    library.insertOne(api);
-    console.log(api)
+    client.db(dbname).collection('library').insertOne(api).then(() => {
+        return client.close();
+    })
 });
 //Starting server
 try {
