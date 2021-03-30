@@ -24,14 +24,21 @@ app.use(express.json({
 app.use(cors())
 
 //app route
-app.get('/',(req, res)=>{
-    res.send('hello')
-   
-})
-app.post('/posts',async (req, res) => {
+app.get('/get/',async (req, res)=>{
+    await client.connect();
+    const database = client.db(dbname);
+    const library = database.collection('library');
+    library.find({}).toArray(function (err, result){
+        if (err) throw err;
+        res.end(JSON.stringify(result));
+    })
+    }
+   )
+app.post('/posts/',async (req, res) => {
     var api = {
         name: req.body.name,
-        quote: req.body.quote
+        lastname: req.body.lastname,
+        email: req.body.email
     };
     await client.connect();
     const database = client.db(dbname);

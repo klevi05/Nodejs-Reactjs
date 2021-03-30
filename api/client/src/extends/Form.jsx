@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
+import '../extends/form.css';
 
 class Form extends Component {
   constructor(props){
     super(props);
     this.state = {
       name: "",
-      quote: "",
+      lastname: "",
+      email: "",
       post: {}
     }
 
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleQuoteChange = this.handleQuoteChange.bind(this);
+    this.handleLastnameChange = this.handleLastnameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(){
      let databody = {
          name: this.state.name,
-         quote: this.state.quote
+         lastname: this.state.lastname,
+         email : this.state.email
      }
     
-     fetch('http://localhost:9000/posts', {
+     fetch('http://localhost:9000/posts/', {
              method: 'POST',
              body: JSON.stringify(databody),
              headers: {
@@ -31,32 +35,40 @@ class Form extends Component {
  };
 
  handleNameChange(event){
-   this.setState({ name : event.target.value});
+   this.setState({ name : event.target.value });
  };
- handleQuoteChange(event){
-  this.setState({ quote : event.target.value});
+ handleLastnameChange(event){
+  this.setState({ lastname : event.target.value});
+};
+handleEmailChange(event){
+  this.setState({ email: event.target.value });
 };
 handleGET(){
-  fetch('http://localhost:9000')
-  .then(response => response.json())
-  .then(data => console.log(data.json()))
+  fetch('http://localhost:9000/get/')
+         .then(res => res.json())
+         .then(data => console.log(data));
 };
 
   render(){
   return (
     <div className='container'>
-            <form className='input-group mb-3' onSubmit={this.handleSubmit}>
+            <form className='outer-box' onSubmit={this.handleSubmit}>
                 <label >
-                    Name
-                    <input type="text" name="name" value={this.state.name} onChange={this.handleNameChange}/>
+                    <p className="fonti">Name</p> 
+                    <input required className="input" type="text" name="name" value={this.state.name} onChange={this.handleNameChange}/>
                 </label>
                 <label>
-                    quote
-                    <input type="text" name="quote" value={this.state.quote} onChange={this.handleQuoteChange}/>
+                    <p className="fonti">Lastname</p> 
+                    <input required className="input" type="text" name="lastname" value={this.state.lastname} onChange={this.handleLastnameChange}/>
                 </label>
-                <input type="submit" value="Add to DB" />
+                <label>
+                    <p className="fonti">Email</p> 
+                    <input required className="input" type="text" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
+                </label>
+                <br/>
+                <input className="button" type="submit" value="Add to DB" />
+                <input onClick={this.handleGET} className="button" type="button" value="GET" />
             </form>
-            <button type="button" onClick={this.handleGET}>GET</button> 
         </div>
   );
 }}
