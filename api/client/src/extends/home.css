@@ -1,0 +1,92 @@
+.home-container{
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.inside-container{
+    height: 500px;
+    width: 700px;
+    display: grid;
+    grid-template-areas: 'left right';
+}
+.logIn{
+    height: 450px;
+    width: 300px;
+    border: 2px solid transparent;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    border-radius: 30px;
+    margin: 20px;
+    padding: 30px;
+}
+.logIn h1{
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 1px;
+    font-size: 50px;
+    padding-top: 50px;
+    padding-left: 60px;
+    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+}
+.logIn p{
+    font-family: 'Lato', sans-serif;
+    padding-top: 30px;
+    line-height: 23px;
+}
+.logIn button{
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: 85px;
+    border: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 1px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.logIn button:hover{
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+}
+.addUser{
+    height: 450px;
+    width: 300px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+    margin: 20px;
+    padding: 30px;
+}
+.addUser h1{
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 1px;
+    font-size: 50px;
+    padding-top: 50px;
+    padding-left: 60px;
+    text-shadow: 0 13.36px 8.896px #c4b59d,0 -2px 1px #fff;
+}
+.addUser p{
+    font-family: 'Lato', sans-serif;
+    padding-top: 30px;
+    line-height: 23px;
+}
+.addUser button{
+    padding: 10px;
+    margin-top: 50px;
+    margin-left: 85px;
+    border: none;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 1px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.addUser button:hover{
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+}
