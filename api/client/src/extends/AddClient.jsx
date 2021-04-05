@@ -8,12 +8,12 @@ class Form extends Component {
     super(props);
     this.state = {
       name: "",
-      lastname: "",
+      password: "",
       email: "",
     }
 
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleLastnameChange = this.handleLastnameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -21,7 +21,7 @@ class Form extends Component {
   handleSubmit(){
      let databody = {
          name: this.state.name,
-         lastname: this.state.lastname,
+         password: this.state.password,
          email : this.state.email
      }
     
@@ -39,8 +39,8 @@ class Form extends Component {
  handleNameChange(event){
    this.setState({ name : event.target.value });
  };
- handleLastnameChange(event){
-  this.setState({ lastname : event.target.value});
+ handlePasswordChange(event){
+  this.setState({ password : event.target.value});
 };
 handleEmailChange(event){
   this.setState({ email: event.target.value });
@@ -56,19 +56,19 @@ handleEmailChange(event){
             <form className='outer-box' onSubmit={this.handleSubmit}>
             <h2 className="signIn-in-label">Sign In</h2>
                 <label >
-                    <p className="fonti">Name</p> 
+                    <p className="fonti">Username</p> 
                     <input required className="input" type="text" name="name" value={this.state.name} onChange={this.handleNameChange}/>
-                </label>
-                <label>
-                    <p className="fonti">Lastname</p> 
-                    <input required className="input" type="text" name="lastname" value={this.state.lastname} onChange={this.handleLastnameChange}/>
                 </label>
                 <label>
                     <p className="fonti">Email</p> 
                     <input required className="input" type="text" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
                 </label>
+                <label>
+                    <p className="fonti">Password</p> 
+                    <input required className="input" type="password" name="pasword" value={this.state.password} onChange={this.handlePasswordChange}/>
+                </label>
                 <br/>
-                <input className="button" type="submit" value="Submit" />
+                <input className="button" type="submit" value="Sign In" />
             </form>
           </div>
             <div className="Picture">

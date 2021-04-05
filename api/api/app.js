@@ -37,7 +37,7 @@ app.get('/get/',async (req, res)=>{
 app.post('/posts/',async (req, res) => {
     var api = {
         name: req.body.name,
-        lastname: req.body.lastname,
+        password: req.body.password,
         email: req.body.email
     };
     await client.connect();

@@ -1,11 +1,42 @@
 .header {
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 95% 5%;
     background-color: black;
     height: 10vh;
     font-family: 'Bebas Neue', cursive;
     font-size: 30px;
 }
+.home-button{
+    grid-column-start: 95%;
+    grid-column-end: 100% ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.header-title{
+    grid-column-start: 0%;
+    grid-column-end: 95% ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.home-button button{
+    padding: 8px;
+    border: none;
+    border: 2px solid white;
+    background-color: black;
+    color: white;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 1px;
+    border-radius: 7px;
+}
+.home-button button:hover{
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+}
+
