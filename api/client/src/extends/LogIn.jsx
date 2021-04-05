@@ -7,14 +7,13 @@ class LogIn extends Component {
   constructor(props){
     super(props);
     this.state = {
-      name: "",
-      lastname: "",
+      password: "",
       email: "",
+      verified: false,
       users: []
     }
 
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleLastnameChange = this.handleLastnameChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -29,54 +28,39 @@ class LogIn extends Component {
          } );
   };
   //POST Method
-  handleSubmit(){
-     let databody = {
-         name: this.state.name,
-         lastname: this.state.lastname,
-         email : this.state.email
-     }
-    
-     fetch('http://localhost:9000/posts/', {
-             method: 'POST',
-             body: JSON.stringify(databody),
-             headers: {
-                 'Content-Type': 'application/json'
-             },
-         })
-         .then(res => res.json())
-         .then(data => console.log(data));
+  handleSubmit(e){
+    e.preventDefault();
+    this.state.users.map( (data) => {
+       if(data.password === this.state.password){
+        this.props.history.push('/posts');
+       }else{
+         console.log('error')
+       }
+       } )
  };
 
- handleNameChange(event){
-   this.setState({ name : event.target.value });
- };
- handleLastnameChange(event){
-  this.setState({ lastname : event.target.value});
+ handlePasswordChange(event){
+  this.setState({ password : event.target.value});
 };
 handleEmailChange(event){
   this.setState({ email: event.target.value });
 };
 
-
   render(){
   return (
     <React.Fragment>
-      <Header name='LogIn'/>
+      <Header name='Log In'/>
     <div className='container'>
       <div className="form-area">
             <form className='outer-box' onSubmit={this.handleSubmit}>
               <h2 className="log-in-label">Log In</h2>
-                <label >
-                    <p className="fonti">Name</p> 
-                    <input required className="input" type="text" name="name" value={this.state.name} onChange={this.handleNameChange}/>
-                </label>
-                <label>
-                    <p className="fonti">Lastname</p> 
-                    <input required className="input" type="text" name="lastname" value={this.state.lastname} onChange={this.handleLastnameChange}/>
-                </label>
                 <label>
                     <p className="fonti">Email</p> 
                     <input required className="input" type="text" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
+                </label>
+                <label>
+                    <p className="fonti">Password</p> 
+                    <input required className="input" type="password" name="password" value={this.state.password} onChange={this.handlePasswordChange}/>
                 </label>
                 <br/>
                 <input className="button" type="submit" value="Log in" />

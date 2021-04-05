@@ -24,17 +24,15 @@ app.use(express.json({
 app.use(cors())
 
 //app route
-app.get('/get/',async (req, res)=>{
+app.get('/get',async (req, res)=>{
     await client.connect();
     client.db(dbname).collection('library').find({}).toArray(function (err, result){
         if (err) throw err;
         res.end(JSON.stringify(result));
-    }).then(()=>{
-        return client.close();
     })
     }
    )
-app.post('/posts/',async (req, res) => {
+app.post('/posts',async (req, res) => {
     var api = {
         name: req.body.name,
         password: req.body.password,
@@ -42,7 +40,9 @@ app.post('/posts/',async (req, res) => {
     };
     await client.connect();
     client.db(dbname).collection('library').insertOne(api).then(() => {
-        return client.close();
+        console.log('Succsess')
+    }).catch((err)=> {
+        console.log(err)
     })
 });
 //Starting server

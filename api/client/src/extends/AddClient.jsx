@@ -9,7 +9,7 @@ class Form extends Component {
     this.state = {
       name: "",
       password: "",
-      email: "",
+      email: ""
     }
 
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -32,7 +32,13 @@ class Form extends Component {
                  'Content-Type': 'application/json'
              },
          })
-         .then(res => res.json())
+         .then( (res) =>{
+           if(res.status === 200){
+             return res.json;
+           }else{
+             console.log(res.status)
+           }
+         } )
          .then(data => console.log(data));
  };
 
@@ -45,16 +51,14 @@ class Form extends Component {
 handleEmailChange(event){
   this.setState({ email: event.target.value });
 };
-
-
   render(){
   return (
     <React.Fragment>
-      <Header name='Sign In'/>
+      <Header name='Sign Up'/>
     <div className='container'>
       <div className="form-area">
             <form className='outer-box' onSubmit={this.handleSubmit}>
-            <h2 className="signIn-in-label">Sign In</h2>
+            <h2 className="signIn-in-label">Sign Up</h2>
                 <label >
                     <p className="fonti">Username</p> 
                     <input required className="input" type="text" name="name" value={this.state.name} onChange={this.handleNameChange}/>
@@ -68,7 +72,7 @@ handleEmailChange(event){
                     <input required className="input" type="password" name="pasword" value={this.state.password} onChange={this.handlePasswordChange}/>
                 </label>
                 <br/>
-                <input className="button" type="submit" value="Sign In" />
+                <input  className="button" type="submit" value="Sign Up" />
             </form>
           </div>
             <div className="Picture">
