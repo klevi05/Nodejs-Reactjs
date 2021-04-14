@@ -8,13 +8,12 @@ class LogIn extends Component {
     super(props);
     this.state = {
       password: "",
-      email: "",
-      verified: false,
+      username: "",
       users: []
     }
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   //ComponentDidMount acts like a GET method
@@ -24,26 +23,23 @@ class LogIn extends Component {
          .then(data => {
            this.setState({
              users: data
-           })
+           });
          } );
   };
   //POST Method
   handleSubmit(e){
     e.preventDefault();
-    this.state.users.map( (data) => {
-       if(data.password === this.state.password){
-        this.props.history.push('/posts');
-       }else{
-         console.log('error')
-       }
-       } )
+    try {
+      console.log("hello")
+    } catch (error) {
+      console.log(error)
+    }
  };
 
  handlePasswordChange(event){
-  this.setState({ password : event.target.value});
-};
-handleEmailChange(event){
-  this.setState({ email: event.target.value });
+  this.setState({ password : event.target.value})};
+handleUsernameChange(event){
+  this.setState({ username: event.target.value });
 };
 
   render(){
@@ -55,8 +51,8 @@ handleEmailChange(event){
             <form className='outer-box' onSubmit={this.handleSubmit}>
               <h2 className="log-in-label">Log In</h2>
                 <label>
-                    <p className="fonti">Email</p> 
-                    <input required className="input" type="text" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
+                    <p className="fonti">Userame</p> 
+                    <input required className="input" type="text" name="Email" value={this.state.username} onChange={this.handleUsernameChange}/>
                 </label>
                 <label>
                     <p className="fonti">Password</p> 
