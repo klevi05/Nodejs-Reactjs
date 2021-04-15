@@ -1,15 +1,16 @@
 .header {
     color: white;
     display: grid;
-    grid-template-columns: 95% 5%;
+    grid-template-columns: 90% 10%;
     background-color: black;
     height: 10vh;
     font-family: 'Bebas Neue', cursive;
     font-size: 30px;
 }
 .home-button{
-    grid-column-start: 95%;
+    grid-column-start: 90%;
     grid-column-end: 100% ;
+    grid-gap: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,10 +18,10 @@
 }
 .header-title{
     grid-column-start: 0%;
-    grid-column-end: 95% ;
+    grid-column-end: 90% ;
     display: flex;
     align-items: center;
-    justify-content: center;
+    margin-left: 800px;
     flex-direction: row;
 }
 .home-button button{

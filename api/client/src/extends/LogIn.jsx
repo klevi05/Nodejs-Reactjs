@@ -8,51 +8,55 @@ class LogIn extends Component {
     super(props);
     this.state = {
       password: "",
-      username: "",
-      users: []
+      email: "",
+      valide: false
     }
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  //ComponentDidMount acts like a GET method
-  componentDidMount(){
-    fetch('http://localhost:9000/get/')
-         .then(res => res.json())
-         .then(data => {
-           this.setState({
-             users: data
-           });
-         } );
-  };
   //POST Method
   handleSubmit(e){
     e.preventDefault();
-    try {
-      console.log("hello")
-    } catch (error) {
-      console.log(error)
-    }
- };
+    const databody={
+      email: this.state.email,
+      password: this.state.password,
+    };
 
- handlePasswordChange(event){
-  this.setState({ password : event.target.value})};
-handleUsernameChange(event){
-  this.setState({ username: event.target.value });
+    fetch('http://localhost:5000/user/logIn',{
+      method: 'POST',
+      body: JSON.stringify(databody),
+      headers: {
+          'Content-Type': 'application/json'
+      },
+  })
+         .then(res =>{
+           if(res.status === 400){
+             console.log(res.statusText)
+           }else if(res.status === 200){
+             this.setState({valide:true})
+           }
+         } )
+  }
+ 
+ handleEmailChange(event){
+  this.setState({ email : event.target.value})};
+handlePasswordChange(event){
+  this.setState({ password: event.target.value });
 };
 
   render(){
   return (
     <React.Fragment>
-      <Header name='Log In'/>
+      <Header name='Log In' btn1='Home' btn2='Sign Up' path1="/" path2="/addUser" />
     <div className='container'>
       <div className="form-area">
             <form className='outer-box' onSubmit={this.handleSubmit}>
               <h2 className="log-in-label">Log In</h2>
                 <label>
                     <p className="fonti">Userame</p> 
-                    <input required className="input" type="text" name="Email" value={this.state.username} onChange={this.handleUsernameChange}/>
+                    <input required className="input" type="email" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
                 </label>
                 <label>
                     <p className="fonti">Password</p> 

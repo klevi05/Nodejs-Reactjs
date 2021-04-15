@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom';
 function Home(){
     return(
         <React.Fragment>
-            <Header name='home'/>
+            <Header name='Home' btn1='Log In' btn2='Sign Up' path1="/logIn" path2="/addUser" />
             <div className='home-container'>
                 <div className="inside-container">
                     <div className="logIn">

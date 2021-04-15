@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../extends/form.css';
 import library from '../images/globe.jpg';
 import Header from './Header';
@@ -11,6 +12,7 @@ class Form extends React.Component {
       username: "",
       password: "",
       email: "",
+      problem: "",
       stat: false
     };
     
@@ -21,7 +23,8 @@ class Form extends React.Component {
   }
   
   //POST Method
-  handleSubmit = () =>{
+  handleSubmit = event =>{
+    event.preventDefault();
     let databody = {
          username: this.state.username,
          email : this.state.email,
@@ -35,9 +38,15 @@ class Form extends React.Component {
                 'Content-Type': 'application/json'
             },
         })
-        .then(  (res) =>{
-          if(res.status === 200){
-            this.setState({ stat: true})
+        .then((res) =>{
+          if(res.status === 400){
+            this.setState({password: ""});
+            this.setState({problem:"Email or password is not right!"});
+          }else if(res.status === 200){
+            this.setState({stat:true});
+            window.location.reload(false);
+          }else{
+            console.log('error')
           }
         })
  };
@@ -55,7 +64,7 @@ handleEmailChange(event){
   render(){
   return (
     <React.Fragment>
-      <Header name='Sign Up'/>
+      <Header name='Sign Up' btn1='Home' btn2='Log In' path1="/" path2="/logIn" />
     <div className='container'>
       <div className="form-area">
             <form className='outer-box' onSubmit={this.handleSubmit}>
@@ -63,7 +72,7 @@ handleEmailChange(event){
                 <label >
                     <p className="fonti">Username</p> 
                     <input required className="input" type="text" placeholder="Name" name="name" value={this.state.username} onChange={this.handleuserNameChange}/>
-                    <div></div>
+                    <div className="problem">{this.state.problem}</div>
                 </label>
                 <label>
                     <p className="fonti">Email</p> 
@@ -76,6 +85,7 @@ handleEmailChange(event){
                 </label>
                 <br/>
                 <input  className="button" type="submit" value="Sign Up" />
+                <p className='ifLoged'>If you have an acount click here <Link className='toLog' to='/logIn' >Log In</Link></p>
             </form>
           </div>
             <div className="Picture">
