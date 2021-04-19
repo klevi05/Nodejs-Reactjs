@@ -5,14 +5,13 @@ const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcrypt');
 
 router.post('/register', body('username').isAlphanumeric(), body('email').isEmail().normalizeEmail().custom(
-  value => {
-      return User.find({
-        email: value
-      }).then( em => {
-        if(em.length > 0){
-          return Promise.reject('Email already exists')
-        }
-      })
+   async value => {
+      const em = await User.find({
+      email: value
+    });
+    if (em.length > 0) {
+      return Promise.reject('Email already exists');
+    }
   }
 ), body('password').isLength({min:6}), async (req, res)=>{
   const salt = 10;
@@ -40,7 +39,7 @@ router.post('/register', body('username').isAlphanumeric(), body('email').isEmai
 });
 
 router.post('/logIn', body('email').isEmail().normalizeEmail().custom(
-  value => {
+  async value => {
       return User.find({
         email: value
       }).then( em => {

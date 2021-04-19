@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../extends/form.css';
 import library from '../images/globe.jpg';
 import Header from './Header';
+import axios from 'axios';
 
 
 class Form extends React.Component {
@@ -12,8 +13,7 @@ class Form extends React.Component {
       username: "",
       password: "",
       email: "",
-      problem: "",
-      stat: false
+      problem: ""
     };
     
     this.handleuserNameChange = this.handleuserNameChange.bind(this);
@@ -28,29 +28,22 @@ class Form extends React.Component {
     let databody = {
          username: this.state.username,
          email : this.state.email,
-         password: this.state.password
+         password: this.state.password,
      }
-    
-     fetch('http://localhost:5000/user/register', {
-            method: 'POST',
-            body: JSON.stringify(databody),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then((res) =>{
-          if(res.status === 400){
-            this.setState({password: ""});
-            this.setState({problem:"Email or password is not right!"});
-          }else if(res.status === 200){
-            this.setState({stat:true});
-            window.location.reload(false);
-          }else{
-            console.log('error')
-          }
-        })
- };
-
+     axios({
+      method: 'post',
+      url: 'http://localhost:5000/user/register',
+      headers: {'Content-Type': 'application/json'},
+      data: databody
+    }).then((response) => {
+      if (response.status === 200) {
+        window.location.reload(false)
+      }
+    }).catch(() => {
+      this.setState({password: ""});
+      this.setState({problem:"Email or password is not right!"});
+    })
+  };
  handleuserNameChange(event){
    this.setState({ username : event.target.value });
  };
@@ -69,10 +62,10 @@ handleEmailChange(event){
       <div className="form-area">
             <form className='outer-box' onSubmit={this.handleSubmit}>
             <h2 className="signIn-in-label">Sign Up</h2>
+            <div className="problem">{this.state.problem}</div>
                 <label >
                     <p className="fonti">Username</p> 
                     <input required className="input" type="text" placeholder="Name" name="name" value={this.state.username} onChange={this.handleuserNameChange}/>
-                    <div className="problem">{this.state.problem}</div>
                 </label>
                 <label>
                     <p className="fonti">Email</p> 
@@ -91,7 +84,7 @@ handleEmailChange(event){
             <div className="Picture">
               <img className="library-pic" src={library} alt="library"/>
             </div>
-        </div>
+          </div>
         </React.Fragment>
   );
 }}

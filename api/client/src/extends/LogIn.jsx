@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link,} from 'react-router-dom';
 import '../extends/log.css';
 import library from '../images/blacklibrary.jpg'
 import Header from './Header';
+import axios from 'axios';
 
 class LogIn extends Component {
   constructor(props){
@@ -9,7 +11,8 @@ class LogIn extends Component {
     this.state = {
       password: "",
       email: "",
-      valide: false
+      errors:"",
+      val: false
     }
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -23,23 +26,20 @@ class LogIn extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-
-    fetch('http://localhost:5000/user/logIn',{
-      method: 'POST',
-      body: JSON.stringify(databody),
-      headers: {
-          'Content-Type': 'application/json'
-      },
-  })
-         .then(res =>{
-           if(res.status === 400){
-             console.log(res.statusText)
-           }else if(res.status === 200){
-             this.setState({valide:true})
-           }
-         } )
-  }
- 
+    axios({
+      method: 'post',
+      url: 'http://localhost:5000/user/logIn',
+      headers: {'Content-Type': 'application/json'},
+      data: databody
+    }).then((response) => {
+      if (response.status === 200) {
+        window.location.reload(false)
+      }
+    }).catch(() => {
+      this.setState({ errors: "Email or password is not valid!"})
+      this.setState({password: ""})
+    })
+  };
  handleEmailChange(event){
   this.setState({ email : event.target.value})};
 handlePasswordChange(event){
@@ -54,8 +54,9 @@ handlePasswordChange(event){
       <div className="form-area">
             <form className='outer-box' onSubmit={this.handleSubmit}>
               <h2 className="log-in-label">Log In</h2>
+              <div className='errors'>{ this.state.errors }</div>
                 <label>
-                    <p className="fonti">Userame</p> 
+                    <p className="fonti">Email</p> 
                     <input required className="input" type="email" name="Email" value={this.state.email} onChange={this.handleEmailChange}/>
                 </label>
                 <label>
@@ -64,6 +65,7 @@ handlePasswordChange(event){
                 </label>
                 <br/>
                 <input className="button" type="submit" value="Log in" />
+                <p className='ifSign'>If you don't have an acount<Link className='toSign' to="/addUser">Sign up</Link></p>
             </form>
           </div>
             <div className="Picture">
