@@ -4,6 +4,7 @@ const User = require('../model/User');
 const { body, validationResult } = require('express-validator')
 const bcrypt = require('bcrypt');
 
+//Router for register
 router.post('/register', body('username').isAlphanumeric(), body('email').isEmail().normalizeEmail().custom(
    async value => {
       const em = await User.find({
@@ -38,6 +39,7 @@ router.post('/register', body('username').isAlphanumeric(), body('email').isEmai
     return res.status(200).json();
 });
 
+//Router for Log In 
 router.post('/logIn', body('email').isEmail().normalizeEmail().custom(
   async value => {
       return User.find({

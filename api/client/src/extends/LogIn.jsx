@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import { Link,} from 'react-router-dom';
 import '../extends/log.css';
-import library from '../images/blacklibrary.jpg'
+import library from '../images/blacklibrary.jpg';
 import Header from './Header';
 import axios from 'axios';
 
@@ -33,7 +33,7 @@ class LogIn extends Component {
       data: databody
     }).then((response) => {
       if (response.status === 200) {
-        window.location.reload(false)
+        this.props.history.push('/posts')
       }
     }).catch(() => {
       this.setState({ errors: "Email or password is not valid!"})

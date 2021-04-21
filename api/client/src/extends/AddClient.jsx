@@ -37,7 +37,7 @@ class Form extends React.Component {
       data: databody
     }).then((response) => {
       if (response.status === 200) {
-        window.location.reload(false)
+        this.props.history.push('/logIn')
       }
     }).catch(() => {
       this.setState({password: ""});
