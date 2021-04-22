@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express();
 const User = require('../model/User');
-const { body, validationResult } = require('express-validator')
+const jwt = require('jsonwebtoken');
+const { body, validationResult } = require('express-validator');
+//const verify = require('./verifyToken');
 const bcrypt = require('bcrypt');
 
+let tok = '';
 //Router for register
 router.post('/register', body('username').isAlphanumeric(), body('email').isEmail().normalizeEmail().custom(
    async value => {
@@ -60,9 +63,24 @@ router.post('/logIn', body('email').isEmail().normalizeEmail().custom(
   };
   const user = await User.findOne({email: req.body.email});
   const valid = await bcrypt.compare(req.body.password, user.password);
-  if(!valid) return res.status(400).json();
- return res.status(200).json();
+  if(!valid)return res.status(400).json();
+  //JWT token
+  const token = jwt.sign({_id : user._id} , process.env.ACCESS_TOKEN_SECRET);
+  tok = token;
 });
 
+router.get('/posts',async (_req, res) => {
+  try {
+    const valid = jwt.verify(tok, process.env.ACCESS_TOKEN_SECRET)
+    console.log(valid)
+    return res.status(200).send(valid)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+})
 
+router.post('/remove', async (_req, res) => {
+  tok = ''
+  return res.send(tok)
+})
 module.exports = router;
